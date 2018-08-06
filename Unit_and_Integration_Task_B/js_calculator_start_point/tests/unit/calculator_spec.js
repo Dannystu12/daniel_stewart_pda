@@ -38,7 +38,16 @@ describe('calculator', function () {
   it('it can handle division by 0', function(){
     calculator.previousTotal = 3;
     calculator.divide('0');
-    assert.equal(calculator.runningTotal, Infinity);
+    assert.equal(calculator.runningTotal, 'Math ERROR');
+  })
+
+  it('it reverts total to 0 after error', function(){
+    calculator.previousTotal = 3;
+    calculator.divide('0');
+    calculator.operatorClick('+');
+    calculator.numberClick('1');
+    calculator.operatorClick('=')
+    assert.equal(calculator.runningTotal, '1');
   })
 
   it('it can handle number clicks', function(){
@@ -75,7 +84,7 @@ describe('calculator', function () {
     assert.equal(calculator.previousOperator, '*');
     assert.equal(calculator.previousTotal, 20);
     assert.equal(calculator.newTotal, true);
-    
+
     // check equals click behaviour
     calculator.operatorClick('=');
     assert.equal(calculator.runningTotal, 400);
